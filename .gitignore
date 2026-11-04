@@ -1,2 +1,6 @@
 # VS Code 개인 설정
 .vscode/
+
+# Python 캐시 (import할 때 자동 생성)
+__pycache__/
+*.pyc
