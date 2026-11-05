@@ -74,19 +74,25 @@
 
 - test와 validation 성능이 비슷하고, 음수 예측은 0개
 - 예측 vs 실제 그래프: 대부분 y = x 선 근처에 모여 있음. 대여 수가 클수록 오차가 퍼지고, 2,500 이상에서는 조금 적게 예측
+- 비교 기준 (저장된 분할 데이터로 추가 계산): 모든 시간에 train 평균(732.9)만 예측하면 test MSE 401,418.8 / RMSE 633.6 / MAE 512.4 → 최종 모델은 MSE가 약 1/13
+- R² (= 1 - 모델 MSE / 타깃 분산): test 약 0.925, validation 약 0.914
 
 ## 8단계: 제출 정리 (진행 중)
 
 - 처음에는 `bike_demand.py`로 내보냈지만, GitHub 주소로 제출하기로 해서 삭제
 - 하나였던 노트북을 **단계별 노트북(`notebooks/`)과 공통 코드(`src/`)로 분리**. 01→05 실행 결과가 분리 전과 똑같은 것을 확인
-- `.gitignore`를 추가하고 `.vscode/`를 추적에서 제외
-- 작업 정리 문서(`docs/project_summary.md`)와 `README.md` 작성
+- `.gitignore` 추가
+  - `.vscode/`: VS Code 개인 설정. 이미 추적되던 `.vscode/settings.json`은 `git rm --cached`로 추적 해제
+  - `__pycache__/`, `*.pyc`: `src`를 import할 때 자동으로 생기는 Python 캐시
+- 문서 작성: `README.md`, `docs/project_summary.md`(이 문서), `docs/data_description.md`(데이터 출처·변수 설명, UCI 설명과 실제 파일 비교)
+- VS Code에서 `ml` 커널로 01 → 05를 실행하고 **출력 결과를 포함해 저장**. 모든 코드 셀이 오류 없이 실행됐고, 저장된 결과가 이 문서의 값과 같음
+- 이해도 검사 대비 정리 문서를 저장소 밖(수업 자료 폴더)에 따로 작성
 
 ## 폴더 구조
 
 ```
 seoul-bike-demand-forecast/
-├─ .gitignore
+├─ .gitignore                            ← .vscode/, __pycache__/, *.pyc 제외
 ├─ README.md
 ├─ docs/
 │  ├─ data_description.md               ← 데이터 설명
@@ -121,4 +127,3 @@ seoul-bike-demand-forecast/
 ## 남은 일
 
 - 보고서(PDF) 작성
-- 제출 전에 VS Code에서 01 → 05 순서로 Run All 하고 저장 (현재 노트북에는 실행 결과가 저장되어 있지 않음)
