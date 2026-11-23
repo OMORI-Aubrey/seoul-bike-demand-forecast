@@ -1,8 +1,8 @@
-"""Keras 회귀 모델 생성과 학습 곡선 그리기 (04, 05 노트북에서 공통 사용)"""
+"""Keras 회귀 모델 생성, 학습 로그 저장, 학습 곡선 그리기 (04, 05 노트북에서 공통 사용)"""
 import keras
 import matplotlib.pyplot as plt
 
-from src.config import SEED
+from src.config import LOGS_DIR, SEED
 
 
 def build_model(n_inputs, hidden_units, activation, learning_rate):
@@ -18,6 +18,12 @@ def build_model(n_inputs, hidden_units, activation, learning_rate):
     model.add(keras.layers.Dense(1))
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=learning_rate), loss='mse', metrics=['mae'])
     return model
+
+
+def csv_logger(name):
+    """epoch별 loss, mae, val_loss, val_mae를 results/logs/{name}.csv로 저장하는 콜백"""
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    return keras.callbacks.CSVLogger(LOGS_DIR / f'{name}.csv')
 
 
 def plot_history(history, title):

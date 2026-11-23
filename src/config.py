@@ -12,6 +12,7 @@ CLEAN_PATH = PROCESSED_DIR / 'seoul_bike_clean.csv'              # 01에서 저�
 RESULTS_DIR = ROOT / 'results'
 EXPERIMENTS_PATH = RESULTS_DIR / 'experiments.csv'               # 04에서 저장하는 실험 결과
 BEST_CONFIG_PATH = RESULTS_DIR / 'best_config.json'              # 04에서 저장, 05에서 읽는 최적 조합
+LOGS_DIR = RESULTS_DIR / 'logs'                                  # 04, 05에서 저장하는 epoch별 학습 로그 (CSV)
 
 SEED = 42
 TARGET = 'rented_bike_count'
