@@ -61,6 +61,7 @@
 | 4. 타깃 로그 변환 | raw / log1p | **raw** | 34,268.3 (log1p 58,657.4, 과적합 보임) |
 
 - 결과는 `results/experiments.csv`, `results/best_config.json`에 저장
+- 기본 모델과 실험 13개의 epoch별 학습 로그는 `results/logs/`에 CSV로 저장 (예: `baseline.csv`, `exp1_hidden_units_128-64-32.csv`)
 
 ## 7단계: 최종 모델·평가 (`notebooks/05_final_model.ipynb`)
 
@@ -87,6 +88,11 @@
 - 문서 작성: `README.md`, `docs/project_summary.md`(이 문서), `docs/data_description.md`(데이터 출처·변수 설명, UCI 설명과 실제 파일 비교)
 - VS Code에서 `ml` 커널로 01 → 05를 실행하고 **출력 결과를 포함해 저장**. 모든 코드 셀이 오류 없이 실행됐고, 저장된 결과가 이 문서의 값과 같음
 - 이해도 검사 대비 정리 문서를 저장소 밖(수업 자료 폴더)에 따로 작성
+- 학습 로그 제출 요구에 맞춰 로그 저장 추가
+  - `src/model.py`에 `csv_logger(name)` 추가 (Keras `CSVLogger` 콜백, `results/logs/{name}.csv`에 저장)
+  - 04: 기본 모델 + 실험 13개의 `fit()`에 CSV 로그 저장 추가 (화면 출력은 `verbose=0` 유지)
+  - 05: 최종 모델을 `verbose=2`로 바꿔 epoch별 로그를 노트북 출력에 남기고, `final_model.csv`로도 저장
+  - CSV 15개, 각 100 epoch. 로그 추가 후 다시 실행해도 실험 결과와 test 성능이 그대로임을 확인
 
 ## 폴더 구조
 
@@ -103,7 +109,8 @@ seoul-bike-demand-forecast/
 │     ├─ seoul_bike_clean.csv           ← 01 출력
 │     └─ X_train/val/test.csv, y_train/val/test.csv  ← 03 출력
 ├─ results/
-│  └─ experiments.csv, best_config.json ← 04 출력
+│  ├─ experiments.csv, best_config.json ← 04 출력
+│  └─ logs/                             ← 04, 05 출력: epoch별 학습 로그 CSV 15개
 ├─ notebooks/
 │  ├─ 01_data_cleaning.ipynb
 │  ├─ 02_eda.ipynb
@@ -114,7 +121,7 @@ seoul-bike-demand-forecast/
    ├─ __init__.py
    ├─ config.py   (경로, SEED, TARGET)
    ├─ data.py     (load_clean, save_splits, load_splits)
-   └─ model.py    (build_model, plot_history)
+   └─ model.py    (build_model, csv_logger, plot_history)
 ```
 
 ## 한계 (보고서용)

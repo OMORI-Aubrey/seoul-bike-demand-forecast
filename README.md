@@ -38,7 +38,7 @@ seoul-bike-demand-forecast/
 │  └─ processed/                ← 정리본, 분할된 데이터 (노트북 실행 시 생성)
 ├─ notebooks/                   ← 단계별 노트북 (01 → 05 순서로 실행)
 ├─ src/                         ← 노트북에서 공통으로 쓰는 코드
-├─ results/                     ← 실험 결과, 최적 하이퍼파라미터
+├─ results/                     ← 실험 결과, 최적 하이퍼파라미터, 학습 로그(logs/)
 └─ docs/                        ← 문서
    ├─ data_description.md       ← 데이터 설명
    └─ project_summary.md        ← 단계별 작업 정리
@@ -78,6 +78,7 @@ pip install tensorflow pandas numpy matplotlib scikit-learn ipykernel
 2. **01 → 02 → 03 → 04 → 05 순서**로 실행합니다. 앞 노트북이 저장한 파일을 다음 노트북이 읽습니다.
    - 04는 실험 때문에 CPU 기준 약 6분이 걸립니다.
    - 05는 04가 저장한 `results/best_config.json`을 읽으므로, 실험을 다시 돌리지 않고 최종 평가만 할 수 있습니다.
+   - 학습 로그: 04·05의 모든 학습(15번)은 epoch별 `loss`, `mae`, `val_loss`, `val_mae`가 `results/logs/*.csv`로 저장되고, 05는 노트북 출력에도 epoch별 로그(`verbose=2`)가 남습니다.
 3. 랜덤 시드를 42로 고정해서 같은 환경에서는 같은 결과가 나옵니다.
 
 ## 한계
